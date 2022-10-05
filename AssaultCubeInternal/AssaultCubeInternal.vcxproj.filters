@@ -22,6 +22,9 @@
     <Filter Include="pch">
       <UniqueIdentifier>{747a74a6-3eb5-424c-8bfb-29a7cafa951e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="util">
+      <UniqueIdentifier>{59335ae5-89d8-4d9a-80ac-eff1b1f3f8fd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -36,6 +39,9 @@
     <ClInclude Include="pch.h">
       <Filter>pch</Filter>
     </ClInclude>
+    <ClInclude Include="util.h">
+      <Filter>util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -49,6 +55,9 @@
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>pch</Filter>
+    </ClCompile>
+    <ClCompile Include="util.cpp">
+      <Filter>util</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
