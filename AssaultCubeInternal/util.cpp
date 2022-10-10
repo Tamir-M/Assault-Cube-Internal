@@ -1,16 +1,20 @@
 #include "pch.h"
 #include "util.h"
 
-void printMenu(bool bHealth, bool bAmmo, bool bRecoil, bool bInstaKill) {
+void util::printMenu(bool bHealth, bool bAmmo, bool bRecoil, bool bInstaKill, bool bJump, bool bSpeed) {
     system("CLS");
-    std::string healthState = bHealth ? "x" : " ";
-    std::cout << "[" << healthState << ']' << " Health Hack - NUM1" << std::endl;
-    std::string ammoState = bAmmo ? "x" : " ";
-    std::cout << "[" << ammoState << ']' << " Ammo Hack - NUM2" << std::endl;
-    std::string recoilState = bRecoil ? "x" : " ";
-    std::cout << "[" << recoilState << ']' << " Recoil Hack - NUM3" << std::endl;
-    std::string instaKillState = bInstaKill ? "x" : " ";
-    std::cout << "[" << instaKillState << ']' << " Insta Kill- NUM4" << std::endl;
-    std::cout << "[ ] Change Kills to 999 - NUM 5" << std::endl;
+    std::string state = bHealth ? "x" : " ";
+    std::cout << "[" << state << ']' << " Health Hack - NUM1" << std::endl;
+    state = bAmmo ? "x" : " ";
+    std::cout << "[" << state << ']' << " Ammo Hack - NUM2" << std::endl;
+    state = bRecoil ? "x" : " ";
+    std::cout << "[" << state << ']' << " Recoil Hack - NUM3" << std::endl;
+    state = bInstaKill ? "x" : " ";
+    std::cout << "[" << state << ']' << " Insta Kill- NUM4" << std::endl;
+    std::cout << "[ ] Change Kills to 1337 - NUM 5" << std::endl;
+    state = bJump ? "x" : " ";
+    std::cout << "[" << state << ']' << " Big Jump - NUM6" << std::endl;
+    state = bSpeed ? "x" : " ";
+    std::cout << "[" << state << ']' << " Speed Hack - NUM7" << std::endl;
     std::cout << std::endl << std::endl << "To exit please press END" << std::endl;
 }

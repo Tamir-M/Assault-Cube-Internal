@@ -23,10 +23,11 @@ DWORD WINAPI HackThread(HMODULE hModule) {
 
     // Get Module Base
     uintptr_t moduleBase = (uintptr_t)GetModuleHandle(L"ac_client.exe");
-    bool bHealth = false, bAmmo = false, bRecoil = false, bInstaKill = false;
+    bool bHealth = false, bAmmo = false, bRecoil = false, bInstaKill = false, bJump = false, bSpeed = false;
+    
 
     // Print the menu:
-    util::printMenu(bHealth, bAmmo, bRecoil, bInstaKill);
+    util::printMenu(bHealth, bAmmo, bRecoil, bInstaKill, bJump, bSpeed);
 
     // Hack Loop
     uintptr_t* localPlayerPtr = (uintptr_t*)(moduleBase + 0x10f4f4);
@@ -38,22 +39,22 @@ DWORD WINAPI HackThread(HMODULE hModule) {
         }
         if (GetAsyncKeyState(VK_NUMPAD1) & 1) {
             bHealth = !bHealth;
-            util::printMenu(bHealth, bAmmo, bRecoil, bInstaKill);
+            util::printMenu(bHealth, bAmmo, bRecoil, bInstaKill, bJump, bSpeed);
         }
         if (GetAsyncKeyState(VK_NUMPAD2) & 1) {
             bAmmo = !bAmmo;
-            util::printMenu(bHealth, bAmmo, bRecoil, bInstaKill);
+            util::printMenu(bHealth, bAmmo, bRecoil, bInstaKill, bJump, bSpeed);
         }
         if (GetAsyncKeyState(VK_NUMPAD3) & 1) {
             bRecoil = !bRecoil;
-            util::printMenu(bHealth, bAmmo, bRecoil, bInstaKill);
+            util::printMenu(bHealth, bAmmo, bRecoil, bInstaKill, bJump, bSpeed);
 
             if (bRecoil) mem::Nop((BYTE*)(moduleBase + 0x63786), 10);
             else mem::Patch((BYTE*)(moduleBase + 0x63786), (BYTE*)"\x50\x8d\x4c\x24\x1c\x51\x8b\xce\xff\xd2", 10);
         }
         if (GetAsyncKeyState(VK_NUMPAD4) & 1) {
             bInstaKill = !bInstaKill;
-            util::printMenu(bHealth, bAmmo, bRecoil, bInstaKill);
+            util::printMenu(bHealth, bAmmo, bRecoil, bInstaKill, bJump, bSpeed);
 
             int hookLength = 5;
             DWORD hookAddress = (moduleBase + 0x29D1F);
@@ -64,6 +65,33 @@ DWORD WINAPI HackThread(HMODULE hModule) {
         }
         if (GetAsyncKeyState(VK_NUMPAD5) & 1) {
             *(int*)(*localPlayerPtr + 0x1FC) = 1337;
+        }
+        if (GetAsyncKeyState(VK_NUMPAD6) & 1) {
+            bJump = !bJump;
+            util::printMenu(bHealth, bAmmo, bRecoil, bInstaKill, bJump, bSpeed);
+            if (bJump) mem::Patch((BYTE*)(moduleBase + 0x5B318), (BYTE*)"\xd9\x05\x44\xE2\x4e\x00", 6);
+            else mem::Patch((BYTE*)(moduleBase + 0x5B318), (BYTE*)"\xd9\x05\x4c\xe2\x4e\x00", 6);
+        }
+        if (GetAsyncKeyState(VK_NUMPAD7) & 1) {
+            bSpeed = !bSpeed;
+            util::printMenu(bHealth, bAmmo, bRecoil, bInstaKill, bJump, bSpeed);
+            if (bSpeed) {
+                mem::Patch((BYTE*)(moduleBase + 0x5BEA0), (BYTE*)"\xb8\x03\x00\x00\x00", 5);
+                mem::Patch((BYTE*)(moduleBase + 0x5BE40), (BYTE*)"\xb8\xfd\xff\xff\xff", 5);
+                mem::Patch((BYTE*)(moduleBase + 0x5BF00), (BYTE*)"\xb8\x03\x00\x00\00", 5);
+                mem::Patch((BYTE*)(moduleBase + 0x5BF60), (BYTE*)"\xb8\xfd\xff\xff\xff", 5);
+            } else {
+                mem::Patch((BYTE*)(moduleBase + 0x5BEA0), (BYTE*)"\xb8\x01\x00\x00\x00", 5);
+                mem::Patch((BYTE*)(moduleBase + 0x5BE40), (BYTE*)"\xb8\xff\xff\xff\xff", 5);
+                mem::Patch((BYTE*)(moduleBase + 0x5BF00), (BYTE*)"\xb8\x01\x00\x00\00", 5);
+                mem::Patch((BYTE*)(moduleBase + 0x5BF60), (BYTE*)"\xb8\xff\xff\xff\xff", 5);
+            }
+        }
+
+        if (GetAsyncKeyState(VK_NUMPAD9) & 1 && 0) { // && 0 to pause feature.
+            int* NumOfPlayers = (int*)(moduleBase + 0x10F500);
+            for (unsigned int i = 0; i < *(NumOfPlayers)-1; i++)
+                std::cout << *(int*)mem::FindDMAAddy(moduleBase + 0x10F4F8, { 0x4 * (i + 1), 0xF8 }) << std::endl;
         }
 
         // Continues Write/Freeze
