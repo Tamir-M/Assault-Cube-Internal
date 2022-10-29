@@ -28,6 +28,12 @@
     <Filter Include="reversals">
       <UniqueIdentifier>{df501481-7d27-437d-9aee-a77d74e70d0c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Aimbot">
+      <UniqueIdentifier>{d62bd4b8-0c74-4dd2-837b-dc023e42aa92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Geom">
+      <UniqueIdentifier>{9a9df437-41c3-4d43-a162-37e6d84887fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -48,6 +54,12 @@
     <ClInclude Include="reversals.h">
       <Filter>reversals</Filter>
     </ClInclude>
+    <ClInclude Include="Aimbot.h">
+      <Filter>Aimbot</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom.h">
+      <Filter>Geom</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -67,6 +79,12 @@
     </ClCompile>
     <ClCompile Include="reversals.cpp">
       <Filter>reversals</Filter>
+    </ClCompile>
+    <ClCompile Include="Aimbot.cpp">
+      <Filter>Aimbot</Filter>
+    </ClCompile>
+    <ClCompile Include="Geom.cpp">
+      <Filter>Geom</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

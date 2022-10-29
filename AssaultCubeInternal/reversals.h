@@ -1,12 +1,42 @@
 #pragma once
 #include <Windows.h>
-
-struct vec { float x, y, z; };
+#include "Geom.h"
 
 extern int* gameMode;
 extern int* numOfPlayers;
 
 class playerent;
+
+enum gameModes
+{
+	TEAMDEATHMATCH = 0,
+	COOPEDIT,
+	DEATHMATCH,
+	SURVIVOR,
+	TEAMSURVIVOR,
+	CTF,
+	PISTOLFRENZY,
+	BOTTEAMDEATHMATCH,
+	BOTDEATHMATCH,
+	LASTSWISSSTANDING,
+	ONESHOTONEKILL,
+	TEAMONESHOTONEKILL,
+	BOTONESHOTONEKILL,
+	HUNTTHEFLAG,
+	TEAMKEEPTHEFLAG,
+	KEEPTHEFLAG,
+	TEAMPF,
+	TEAMLSS,
+	BOTPISTOLFRENZY,
+	BOtlSS,
+	BOTTEAMSURVIVOR,
+	BOTTEAMONESHOTONEKILL,
+	NUM
+};
+
+#define m_teammode    (*gameMode==0 || *gameMode==4 || *gameMode==5 || *gameMode==7 || *gameMode==11 || *gameMode==13 || *gameMode==14 || *gameMode==16 || *gameMode==17 || *gameMode==20 || *gameMode==21)
+#define m_botmode     (*gameMode==7 || *gameMode == 8 || *gameMode==12 || (*gameMode>=18 && *gameMode<=21))
+#define m_flags       (*gameMode==5 || *gameMode==13 || *gameMode==14 || *gameMode==15)
 
 class weapon
 {
@@ -45,6 +75,24 @@ public:
 	char _0x0339[59];
 	weapon* weapon; //0x0374
 	char _0x0378[520];
+};
+
+class PlayerClass {
+public:
+	playerent* ent{ nullptr };
+	vec vAimbotAngles{ 0,0,0 };	
+	float fAngleFromCross{ 0 };
+
+	PlayerClass();
+	PlayerClass(intptr_t* player);
+
+	bool IsVisible();
+};
+
+struct traceresult_s
+{
+	vec end{ 0,0,0 };
+	bool collided{ false };
 };
 
 extern playerent* localPlayer;
