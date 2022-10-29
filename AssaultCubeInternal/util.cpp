@@ -1,7 +1,14 @@
 #include "pch.h"
 #include "util.h"
 
-void util::printMenu(bool bHealth, bool bAmmo, bool bRecoil, bool bInstaKill, bool bJump, bool bSpeed) {
+bool bHealth = false;
+bool bAmmo = false;
+bool bRecoil = false;
+bool bInstaKill = false;
+bool bJump = false;
+bool bSpeed = false;
+
+void util::printMenu() {
     system("CLS");
     std::string state = bHealth ? "x" : " ";
     std::cout << "[" << state << ']' << " Health Hack - NUM1" << std::endl;

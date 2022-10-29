@@ -25,6 +25,9 @@
     <Filter Include="util">
       <UniqueIdentifier>{59335ae5-89d8-4d9a-80ac-eff1b1f3f8fd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="reversals">
+      <UniqueIdentifier>{df501481-7d27-437d-9aee-a77d74e70d0c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -42,6 +45,9 @@
     <ClInclude Include="util.h">
       <Filter>util</Filter>
     </ClInclude>
+    <ClInclude Include="reversals.h">
+      <Filter>reversals</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -58,6 +64,9 @@
     </ClCompile>
     <ClCompile Include="util.cpp">
       <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="reversals.cpp">
+      <Filter>reversals</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
