@@ -2,14 +2,12 @@
 #include "Aimbot.h"
 
 
-std::vector<PlayerClass> playerVector;
+std::vector<PlayerClass> allOtherPlayers;
 std::vector<PlayerClass> targets;
-
-bool playerSorter(PlayerClass& lhs, PlayerClass& rhs) { return lhs.fAngleFromCross < rhs.fAngleFromCross; }
 
 void Aimbot::shoot(void) {
 	targets.clear();
-	for (PlayerClass p : playerVector) {
+	for (PlayerClass p : allOtherPlayers) {
 		if (p.ent == nullptr || p.ent->state != 0 || m_teammode && p.ent->team == localPlayer->team) continue;
 		if (!p.IsVisible()) continue;
 		targets.push_back(p);
@@ -21,15 +19,14 @@ void Aimbot::shoot(void) {
 		p.fAngleFromCross = GetDistanceVec3(p.vAimbotAngles, localPlayer->vViewAngle);
 	}
 
-	sort(targets.begin(), targets.end(), playerSorter);
+	sort(targets.begin(), targets.end(), [](PlayerClass& lhs, PlayerClass& rhs) {return lhs.fAngleFromCross < rhs.fAngleFromCross; });
 
-	if (!targets.empty()) {
+	if (!targets.empty())
 		localPlayer->vViewAngle = targets[0].vAimbotAngles;
-	}
 }
 
 void Aimbot::readPlayerData(void) {
-	playerVector.clear();
+	allOtherPlayers.clear();
 	int numOfOtherPlayers = *numOfPlayers - 1; // disinclude localPlayer.
 	intptr_t* playerArrayAddress = (intptr_t*)0x50F4F8;
 
@@ -37,6 +34,6 @@ void Aimbot::readPlayerData(void) {
 		intptr_t* tempPlayerAddress = (intptr_t*)(*playerArrayAddress + x * 0x4);
 		if (*tempPlayerAddress != 0)
 			if (*(intptr_t*)*tempPlayerAddress == 0x4E4A98 || *(intptr_t*)*tempPlayerAddress == 0x4E4AC0)
-				playerVector.push_back(PlayerClass(tempPlayerAddress));
+				allOtherPlayers.push_back(PlayerClass(tempPlayerAddress));
 	}
 }
