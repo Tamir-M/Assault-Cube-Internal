@@ -12,4 +12,5 @@ namespace mem {
 	void Nop(BYTE* dst, unsigned int size);
 	uintptr_t FindDMAAddy(uintptr_t ptr, std::vector<unsigned int> offsets);
 	bool Hook(void* toHook, void* ourFunct, int len);
+	BYTE* TrampHook32(BYTE* src, BYTE* dst, const uintptr_t len);
 }
